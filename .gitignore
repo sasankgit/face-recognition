@@ -16,8 +16,7 @@ __pycache__/
 *.pyo
 *.pyd
 *.env
-backend/.env
-frontend/.env
+
 
 
 # Logs
@@ -61,3 +60,7 @@ Thumbs.db
 # Optional: lock files if you don’t want to commit them
 # package-lock.json
 # yarn.lock
+
+#backend personal mine
+backend/registered_faces/
+backend/faces_data.json
