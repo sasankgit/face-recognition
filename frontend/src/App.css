@@ -1,0 +1,10 @@
+/* Additional custom styles can be added here */
+.webcam-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.webcam-container img {
+  max-width: 100%;
+  height: auto;
+}
