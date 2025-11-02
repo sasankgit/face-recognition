@@ -209,7 +209,7 @@ function App() {
                 <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <h3 className="font-semibold text-green-800">Recognition Successful!</h3>
                   <p className="text-green-700">Name: {recognitionResult.name}</p>
-                  <p className="text-green-700">Confidence: {(recognitionResult.confidence * 100).toFixed(1)}%</p>
+                  <p className="text-green-700">Accuracy: {(recognitionResult.confidence * 100).toFixed(1)}%</p>
                 </div>
               )}
             </div>

@@ -64,3 +64,5 @@ Thumbs.db
 #backend personal mine
 backend/registered_faces/
 backend/faces_data.json
+*.png
+*.jpg
