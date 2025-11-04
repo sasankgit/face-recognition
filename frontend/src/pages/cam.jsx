@@ -12,6 +12,7 @@ function Cam() {
   const [messageType, setMessageType] = useState('')
   const [registeredFaces, setRegisteredFaces] = useState([])
   const [recognitionResult, setRecognitionResult] = useState(null)
+  const [recogModel, setRecogModel] = useState('face_recognition')
 
   const API_BASE = '/api'
 
@@ -54,7 +55,8 @@ function Cam() {
     try {
       const res = await axios.post(`${API_BASE}/register_face`, {
         name: registerName.trim(),
-        image: capturedImage
+        image: capturedImage,
+        model: recogModel
       })
       if (res.data.success) {
         setMessage(res.data.message)
@@ -82,7 +84,10 @@ function Cam() {
     }
     setIsRecognizing(true)
     try {
-      const res = await axios.post(`${API_BASE}/recognize_face`, { image: capturedImage })
+      const res = await axios.post(`${API_BASE}/recognize_face`, { 
+        image: capturedImage,
+        model: recogModel
+      })
       if (res.data.success) {
         if (res.data.recognized) {
           setRecognitionResult({
@@ -140,6 +145,38 @@ function Cam() {
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
           Face Recognition System
         </h1>
+
+        {/* Model Selection */}
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Select Recognition Model</h2>
+          <div className="flex gap-6">
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="model"
+                value="face_recognition"
+                checked={recogModel === 'face_recognition'}
+                onChange={(e) => setRecogModel(e.target.value)}
+                className="w-4 h-4 text-blue-600 mr-2"
+              />
+              <span className="text-gray-700">Original Face Recognition Model</span>
+            </label>
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="model"
+                value="deepface"
+                checked={recogModel === 'deepface'}
+                onChange={(e) => setRecogModel(e.target.value)}
+                className="w-4 h-4 text-blue-600 mr-2"
+              />
+              <span className="text-gray-700">DeepFace Model</span>
+            </label>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            Current model: <span className="font-semibold">{recogModel === 'face_recognition' ? 'Face Recognition' : 'DeepFace'}</span>
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column - Camera and Controls */}
@@ -251,6 +288,7 @@ function Cam() {
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-blue-800 mb-3">How to Use</h3>
               <ol className="list-decimal list-inside space-y-2 text-blue-700">
+                <li>Select your preferred recognition model</li>
                 <li>Capture an image using the camera</li>
                 <li>To register: Enter a name and click "Register Face"</li>
                 <li>To recognize: Click "Recognize Face" to identify the person</li>
